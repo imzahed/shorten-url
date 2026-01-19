@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapURL | Modern URL Shortener</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <div class="background-animate"></div>
+
+    <div class="container">
+        <header class="animate-top">
+            <h1><i class="fas fa-link"></i> SnapURL</h1>
+            <p>Shorten your long URLs in a blink!</p>
+        </header>
+
+        <main class="main-card animate-bottom">
+            <div class="input-group">
+                <input type="url" id="longUrl" placeholder="Paste your long link here..." required>
+                <button id="shortenBtn">Shorten Now</button>
+            </div>
+
+            <div id="resultSection" class="result-area hidden">
+                <p>Your shortened link is ready:</p>
+                <div class="copy-box">
+                    <input type="text" id="shortUrl" readonly>
+                    <button id="copyBtn"><i class="far fa-copy"></i> Copy</button>
+                </div>
+            </div>
+
+            <div id="loader" class="loader hidden"></div>
+        </main>
+    </div>
+
+    <!-- Congratulations Popup Modal -->
+    <div id="successModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-icon">🌸</div>
+            <h2>Congratulations!</h2>
+            <p>Your link has been successfully shortened.</p>
+            <button id="closeModal">Awesome!</button>
+        </div>
+    </div>
+
+    <footer class="bottom-footer">
+        <p>© 2026 SnapURL - Created with ❤️ by Zahed</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
