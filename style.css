@@ -6,18 +6,21 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh; /* height এর বদলে min-height ব্যবহার করা হয়েছে যাতে মোবাইলে স্ক্রল করা যায় */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
     background: #0f0c29;
     color: white;
+    padding: 20px; /* মোবাইল স্ক্রিনের বর্ডার থেকে গ্যাপ রাখার জন্য */
+    position: relative;
+    overflow-x: hidden;
 }
 
+/* Background Animation */
 .background-animate {
-    position: absolute;
+    position: fixed; /* absolute এর বদলে fixed যাতে স্ক্রল করলেও ব্যাকগ্রাউন্ড নড়াচড়া না করে */
     top: 0;
     left: 0;
     width: 100%;
@@ -35,26 +38,34 @@ body {
 }
 
 .container {
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     text-align: center;
     z-index: 1;
 }
 
+/* Glassmorphism Card */
 .main-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
     border-radius: 20px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    margin-top: 20px;
+    margin: 20px 0;
+    width: 100%;
 }
 
 header h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 3rem); /* মোবাইলে অটো সাইজ ছোট হবে */
     margin-bottom: 10px;
     letter-spacing: 2px;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 .input-group {
@@ -69,6 +80,8 @@ input {
     border: none;
     outline: none;
     font-size: 1rem;
+    width: 100%;
+    text-align: center; /* ইনপুট টেক্সট সেন্টারে থাকবে */
 }
 
 button {
@@ -80,82 +93,72 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 1rem;
 }
 
 button:hover {
     background: #ff416c;
-    transform: scale(1.05);
+    transform: translateY(-2px);
 }
 
 .result-area {
     margin-top: 30px;
+    animation: fadeIn 0.5s ease;
 }
 
 .copy-box {
     display: flex;
+    flex-direction: column; /* মোবাইলে কপি বক্স নিচে নিচে আসবে */
+    gap: 10px;
     margin-top: 10px;
 }
 
 .copy-box input {
-    flex: 1;
-    border-radius: 10px 0 0 10px;
-    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
     color: #333;
 }
 
 #copyBtn {
-    border-radius: 0 10px 10px 0;
+    border-radius: 10px;
+    width: 100%;
 }
 
-/* Modal Styling */
+/* Modal / Popup */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
+    padding: 20px;
 }
 
 .modal-content {
     background: white;
     color: #333;
-    padding: 40px;
+    padding: 30px;
     border-radius: 20px;
     text-align: center;
-    max-width: 400px;
-    width: 90%;
+    width: 100%;
+    max-width: 350px;
     animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes popScale {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.modal-icon {
-    font-size: 4rem;
-    margin-bottom: 15px;
-}
-
-#closeModal {
-    margin-top: 20px;
-    width: 100%;
-    background: #23d5ab;
-}
+.modal-icon { font-size: 3rem; margin-bottom: 10px; }
 
 /* Footer */
 .bottom-footer {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
+    margin-top: auto;
+    padding: 20px 0;
     text-align: center;
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
 .hidden { display: none !important; }
@@ -173,9 +176,27 @@ button:hover {
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
+/* Desktop Adjustment (বড় স্ক্রিনের জন্য) */
+@media (min-width: 768px) {
+    .copy-box {
+        flex-direction: row; /* বড় স্ক্রিনে কপি বাটন পাশে থাকবে */
+    }
+    .copy-box input {
+        border-radius: 10px 0 0 10px;
+    }
+    #copyBtn {
+        border-radius: 0 10px 10px 0;
+        width: auto;
+    }
+    .main-card {
+        padding: 40px;
+    }
+}
+
 /* Entrance Animations */
 .animate-top { animation: fadeInDown 1s ease; }
 .animate-bottom { animation: fadeInUp 1s ease; }
 
-@keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
